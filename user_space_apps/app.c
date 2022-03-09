@@ -21,10 +21,10 @@ int main()
         int32_t number = 0;
 
         printf("***********************************************\n");
-        printf("*******ioctl tecmp Primatec Linux Driver*******\n");
+        printf("*******ioctl tecmp  Linux Driver*******\n");
  
         printf("\nOpening Driver\n");
-        fd = open("/dev/tecmp_primatec", O_RDWR);
+        fd = open("/dev/tecmp", O_RDWR);
         if(fd < 0) {
                 printf("Cannot open device file...\n");
                 return 0;

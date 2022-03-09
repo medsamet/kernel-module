@@ -255,7 +255,7 @@ int main(void)
     int err = 0;
     readptr = readbuf;
     int fd = -1;
-    fd = open("/dev/tecmp_primatec", O_RDWR);
+    fd = open("/dev/tecmp", O_RDWR);
     if(fd < 0) {
         printf("Cannot open device file...\n");
         return -1;

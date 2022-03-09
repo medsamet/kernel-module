@@ -7,10 +7,10 @@
 //https://embetronicx.com/tutorials/linux/device-drivers/ioctl-tutorial-in-linux/
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Primatec Engineering");
+MODULE_AUTHOR("msamet");
 MODULE_DESCRIPTION("A simple example Linux module for TECMP.");
 MODULE_VERSION("0.01");
-#define DEVICE_NAME "tecmp_primatec"
+#define DEVICE_NAME "tecmp"
 #define EXAMPLE_MSG "read access TECMP driver !\n"
 #define MSG_BUFFER_LEN 1536 /* Prototypes for device functions */
 #define TECMP_MAX_FRAME_LEN 1536
@@ -38,13 +38,13 @@ typedef enum eFilterType {
 static struct Ioctl_Filter{
     eFilterType_t type;
     int32_t value;
-}ioctl_filter_t;
+};
 
 static struct Ioctl_Filter_List{
     struct Ioctl_Filter filter[MAX_FILTER_NUM];
     uint8_t index;
     bool empty;
-}Ioctl_Filter_List_t;
+};
 
 struct Ioctl_Filter_List drv_filter;
 
@@ -63,7 +63,7 @@ static struct TecmpHeader{
     uint16_t Reserved;
     uint16_t CMFlags;
     uint32_t ChannelId;
-}tecmp_hdr;
+};
 
 typedef enum eDataType {
     ONE              = 0x0000,
@@ -80,7 +80,7 @@ typedef enum eDataType {
 	ANALOG           = 0x0020,
 	ANALOG_SLA       = 0x0021,
 	ETHERNET_II      = 0x0080
-}eDataType_t;
+};
 
 
 //TECMP internal ring buffer
@@ -103,7 +103,7 @@ static struct circular_buf_t {
     void (*PushCb) (struct circular_buf_t*, struct TecmpFrame*);
     bool (*PopCb) (struct circular_buf_t*, struct TecmpFrame*);
     void (*InitCb) (struct circular_buf_t*);
-}CircBuf;
+};
 
 static bool tecmp_circ_buf_full (struct circular_buf_t* cb);
 static bool tecmp_circ_buf_empty (struct circular_buf_t* cb);
@@ -420,7 +420,7 @@ static void __exit tecmp_driver_exit(void)
 {
     /* Remember — we have to clean up after ourselves. Unregister the character device. */
     unregister_chrdev(major_num, DEVICE_NAME);
-    printk(KERN_INFO "Goodbye, Primatec !\n");
+    printk(KERN_INFO "Goodbye !\n");
 } /* Register module functions */
 
 module_init(tecmp_driver_init);
